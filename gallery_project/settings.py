@@ -8,7 +8,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = False
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "testserver"]
+ALLOWED_HOSTS = [
+    "localhost", 
+    "127.0.0.1", 
+    'brandonandliannaswedding.co.uk',
+    'www.brandonandliannaswedding.co.uk',]
 
 # Used to assign ther external hostname to the ALLOWED_HOSTS list when deployed on Render.com
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
