@@ -10,6 +10,7 @@ class Photo(models.Model):
         validators=[FileExtensionValidator(["jpg", "jpeg", "png", "gif", "webp"])],
     )
     cloudinary_url = models.URLField(blank=True)
+    cloudinary_etag = models.CharField(max_length=64, blank=True, db_index=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     @property

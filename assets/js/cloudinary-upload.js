@@ -34,10 +34,13 @@
             body: JSON.stringify({
                 public_id: cloudinaryPhoto.public_id,
                 secure_url: cloudinaryPhoto.secure_url,
+                etag: cloudinaryPhoto.etag,
                 title,
             }),
         });
         if (!recordResponse.ok) throw new Error("The gallery record could not be saved.");
+        const record = await recordResponse.json();
+        if (record.duplicate) throw new Error("That photo is already in the gallery.");
     };
 
     form.addEventListener("submit", async (event) => {
