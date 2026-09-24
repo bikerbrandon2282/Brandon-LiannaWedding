@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Couple admin | Brandon &amp; Lianna</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="site-header admin-header">
+        <div class="eyebrow">Private gallery management</div>
+        <div class="header-row">
+            <h1>Couple <span>admin</span></h1>
+            <a class="text-link" href="{% url 'gallery' %}">View public gallery &#8594;</a>
+        </div>
+        <p class="intro">Upload photos on behalf of the couple or remove any images you no longer want to keep.</p>
+    </header>
+
+    <main>
+        {% if messages %}
+            {% for message in messages %}<div class="success-message" role="status">{{ message }}</div>{% endfor %}
+        {% endif %}
+
+        <section class="upload-panel admin-upload" aria-labelledby="upload-heading">
+            <div>
+                <div class="eyebrow">New photos</div>
+                <h2 id="upload-heading">Uploaded by the couple</h2>
+                <p>Select several images at once. They will be saved to the gallery with the title shown here.</p>
+            </div>
+            <form method="post" enctype="multipart/form-data" class="upload-form">
+                {% csrf_token %}
+                <label for="id_title">{{ form.title.label }}</label>
+                {{ form.title }}
+                <label class="file-picker" for="id_images">
+                    <span>Choose one or more images</span>
+                    {{ form.images }}
+                </label>
+                {% if form.images.errors %}<div class="form-error">{{ form.images.errors|striptags }}</div>{% endif %}
+                <button type="submit">Upload photos <span aria-hidden="true">&#8594;</span></button>
+            </form>
+        </section>
+
+        <section class="gallery-heading">
+            <div>
+                <div class="eyebrow">Manage collection</div>
+                <h2>Uploaded photos</h2>
+            </div>
+            <span class="photo-count">{{ photos|length }} total</span>
+        </section>
+
+        <section class="admin-photo-grid" aria-label="Uploaded photos">
+            {% for photo in photos %}
+                <article class="admin-photo-card">
+                    <img src="{{ photo.image.url }}" alt="{{ photo.title|default:'Uploaded wedding photo' }}" loading="lazy">
+                    <div class="admin-photo-details">
+                        <div>
+                            <strong>{{ photo.title|default:'Uploaded wedding photo' }}</strong>
+                            <small>{{ photo.uploaded_at|date:"M j, Y" }}</small>
+                        </div>
+                        <form method="post" action="{% url 'delete_photo' photo.id %}">
+                            {% csrf_token %}
+                            <button class="delete-button" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </article>
+            {% empty %}
+                <p class="empty-state">No photos have been uploaded yet.</p>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer>Brandon &amp; Lianna <span>•</span> private admin</footer>
+</body>
+</html>

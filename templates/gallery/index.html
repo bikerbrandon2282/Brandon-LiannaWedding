@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brandon &amp; Lianna | Wedding gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="eyebrow">Our wedding, in pictures</div>
+        <div class="header-row">
+            <h1>Brandon <span>&amp;</span> Lianna</h1>
+            <div class="date-mark">2026<br><small>est. forever</small></div>
+        </div>
+        <p class="intro">A living album of the people, places, and little moments that made our day.</p>
+    </header>
+
+    <main>
+        <section class="upload-panel" aria-labelledby="upload-heading">
+            <div>
+                <div class="eyebrow">Add to the album</div>
+                <h2 id="upload-heading">Share a moment</h2>
+                <p>Upload a favorite photograph and it will appear in the gallery for everyone to enjoy.</p>
+            </div>
+            <form method="post" enctype="multipart/form-data" class="upload-form">
+                {% csrf_token %}
+                <label for="id_title">{{ form.title.label }}</label>
+                {{ form.title }}
+                <label class="file-picker" for="id_images">
+                    <span>Choose one or more images</span>
+                    {{ form.images }}
+                </label>
+                {% if form.images.errors %}<div class="form-error">{{ form.images.errors|striptags }}</div>{% endif %}
+                <button type="submit">Add to gallery <span aria-hidden="true">&#8594;</span></button>
+            </form>
+        </section>
+
+        {% if messages %}
+            {% for message in messages %}<div class="success-message" role="status">{{ message }}</div>{% endfor %}
+        {% endif %}
+
+        <section class="gallery-heading">
+            <div>
+                <div class="eyebrow">The collection</div>
+                <h2>Wedding gallery</h2>
+            </div>
+            <span class="photo-count">{{ photos|length }} shared {% if photos|length == 1 %}photo{% else %}photos{% endif %}</span>
+        </section>
+
+        <section class="gallery-grid" aria-label="Wedding photos">
+            {% for photo in photos %}
+                <figure class="photo-card uploaded-photo">
+                    <img src="{{ photo.image.url }}" alt="{{ photo.title|default:'Shared wedding photo' }}" loading="lazy">
+                    <figcaption>{% if photo.title %}{{ photo.title }}{% else %}Shared by a guest{% endif %}</figcaption>
+                </figure>
+            {% endfor %}
+            {% for photo in bundled_photos %}
+                <figure class="photo-card">
+                    <img src="{% static photo.src %}" alt="{{ photo.alt }}" loading="lazy">
+                    <figcaption>{{ photo.alt }}</figcaption>
+                </figure>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer>Brandon &amp; Lianna <span>•</span> with love, 2026</footer>
+</body>
+</html>
