@@ -1,6 +1,9 @@
 __pycache__/
 *.py[cod]
 .venv/
+env.py
 db.sqlite3
 media/
+staticfiles/
 .DS_Store
+*/migrations/
