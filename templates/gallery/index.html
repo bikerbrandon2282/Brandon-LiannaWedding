@@ -59,7 +59,7 @@
         <section class="gallery-grid" aria-label="Wedding photos">
             {% for photo in photos %}
                 <figure class="photo-card uploaded-photo">
-                    <img src="{{ photo.image.url }}" alt="{{ photo.title|default:'Shared wedding photo' }}" loading="lazy">
+                    <img src="{{ photo.display_url }}" alt="{{ photo.title|default:'Shared wedding photo' }}" loading="lazy">
                     <figcaption>{% if photo.title %}{{ photo.title }}{% else %}Shared by a guest{% endif %}</figcaption>
                 </figure>
             {% endfor %}

@@ -59,7 +59,7 @@
         <section class="admin-photo-grid" aria-label="Uploaded photos">
             {% for photo in photos %}
                 <article class="admin-photo-card">
-                    <img src="{{ photo.image.url }}" alt="{{ photo.title|default:'Uploaded wedding photo' }}" loading="lazy">
+                    <img src="{{ photo.display_url }}" alt="{{ photo.title|default:'Uploaded wedding photo' }}" loading="lazy">
                     <div class="admin-photo-details">
                         <div>
                             <strong>{{ photo.title|default:'Uploaded wedding photo' }}</strong>

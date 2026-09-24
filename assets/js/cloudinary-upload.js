@@ -31,7 +31,11 @@
                 "Content-Type": "application/json",
                 "X-CSRFToken": csrfToken,
             },
-            body: JSON.stringify({ public_id: cloudinaryPhoto.public_id, title }),
+            body: JSON.stringify({
+                public_id: cloudinaryPhoto.public_id,
+                secure_url: cloudinaryPhoto.secure_url,
+                title,
+            }),
         });
         if (!recordResponse.ok) throw new Error("The gallery record could not be saved.");
     };

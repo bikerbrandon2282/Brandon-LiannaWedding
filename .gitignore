@@ -7,3 +7,5 @@ media/
 staticfiles/
 .DS_Store
 */migrations/
+!*/migrations/
+!*/migrations/*.py

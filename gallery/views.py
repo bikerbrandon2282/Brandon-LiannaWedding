@@ -29,13 +29,17 @@ def record_cloudinary_photo(request):
         return JsonResponse({"error": "Invalid upload data."}, status=400)
 
     public_id = payload.get("public_id")
+    cloudinary_url = payload.get("secure_url")
     title = payload.get("title", "")
     if not isinstance(public_id, str) or not public_id.strip():
         return JsonResponse({"error": "Cloudinary did not return an image id."}, status=400)
+    if not isinstance(cloudinary_url, str) or not cloudinary_url.startswith("https://"):
+        return JsonResponse({"error": "Cloudinary did not return a usable image URL."}, status=400)
 
     photo = Photo.objects.create(
         title=title[:120] if isinstance(title, str) else "",
         image=public_id,
+        cloudinary_url=cloudinary_url,
     )
     return JsonResponse({"id": photo.id})
 
