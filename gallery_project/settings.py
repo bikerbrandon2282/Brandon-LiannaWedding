@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from urllib.parse import urlparse
 
 import dj_database_url
 
@@ -25,6 +26,10 @@ INSTALLED_APPS = [
 ]
 
 CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
+CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME") or (
+    urlparse(CLOUDINARY_URL).hostname if CLOUDINARY_URL else None
+)
+CLOUDINARY_UPLOAD_PRESET = os.environ.get("CLOUDINARY_UPLOAD_PRESET")
 if CLOUDINARY_URL:
     INSTALLED_APPS += ["cloudinary", "cloudinary_storage"]
 

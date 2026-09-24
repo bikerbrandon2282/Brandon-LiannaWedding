@@ -34,6 +34,7 @@ button { background: var(--accent); border: 0; color: white; cursor: pointer; fo
 button span { float: right; font-size: 18px; line-height: 12px; }
 button:hover { background: #bd5844; }
 .form-error { color: #a53c2d; font-size: 12px; }
+.upload-status { color: var(--muted); font-size: 12px; min-height: 18px; }
 .success-message { background: #dbe9dc; color: #386344; margin-top: 16px; padding: 12px 16px; }
 .gallery-heading { align-items: end; display: flex; justify-content: space-between; margin: 72px 0 24px; }
 .gallery-heading h2 { margin-top: 8px; }

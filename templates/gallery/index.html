@@ -27,7 +27,10 @@
                 <h2 id="upload-heading">Share a moment</h2>
                 <p>Upload a favorite photograph and it will appear in the gallery for everyone to enjoy.</p>
             </div>
-            <form method="post" enctype="multipart/form-data" class="upload-form">
+            <form method="post" enctype="multipart/form-data" class="upload-form" id="photo-upload-form"
+                data-cloudinary-cloud-name="{{ cloudinary_cloud_name|default:'' }}"
+                data-cloudinary-upload-preset="{{ cloudinary_upload_preset|default:'' }}"
+                data-record-upload-url="{% url 'record_cloudinary_photo' %}">
                 {% csrf_token %}
                 <label for="id_title">{{ form.title.label }}</label>
                 {{ form.title }}
@@ -36,6 +39,7 @@
                     {{ form.images }}
                 </label>
                 {% if form.images.errors %}<div class="form-error">{{ form.images.errors|striptags }}</div>{% endif %}
+                <div class="upload-status" aria-live="polite"></div>
                 <button type="submit">Add to gallery <span aria-hidden="true">&#8594;</span></button>
             </form>
         </section>
@@ -67,6 +71,8 @@
             {% endfor %}
         </section>
     </main>
+
+    <script src="{% static 'js/cloudinary-upload.js' %}"></script>
 
     <footer>Brandon &amp; Lianna <span>•</span> with love, 2026</footer>
 </body>
