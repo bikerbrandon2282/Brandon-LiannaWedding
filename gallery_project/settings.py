@@ -11,7 +11,6 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "localhost", 
     "127.0.0.1", 
-    'brandonandliannaswedding.co.uk',
     'bestweddingever.codeforgeindustries.co.uk',]
 
 # Used to assign the external hostname to the ALLOWED_HOSTS list when deployed on Render.com
