@@ -56,7 +56,7 @@
             <span class="photo-count">{{ photos|length }} shared {% if photos|length == 1 %}photo{% else %}photos{% endif %}</span>
         </section>
 
-        <section class="gallery-grid" aria-label="Wedding photos">
+        <section class="gallery-grid image-gallery" id="gallery" data-image-gallery aria-label="Wedding photos">
             {% for photo in photos %}
                 <figure class="photo-card uploaded-photo">
                     <img src="{{ photo.display_url }}" alt="{{ photo.title|default:'Shared wedding photo' }}" loading="lazy">
@@ -70,9 +70,12 @@
                 </figure>
             {% endfor %}
         </section>
+
+        <button type="button" class="load-more" data-load-more>Load more photos</button>
     </main>
 
     <script src="{% static 'js/cloudinary-upload.js' %}"></script>
+    <script src="{% static 'js/image_display.js' %}"></script>
 
     <footer>Brandon &amp; Lianna <span>•</span> with love, 2026</footer>
 </body>
