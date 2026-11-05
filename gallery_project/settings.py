@@ -12,9 +12,9 @@ ALLOWED_HOSTS = [
     "localhost", 
     "127.0.0.1", 
     'brandonandliannaswedding.co.uk',
-    'www.brandonandliannaswedding.co.uk',]
+    'www.bestweddingever.codeforgeindustries.co.uk',]
 
-# Used to assign ther external hostname to the ALLOWED_HOSTS list when deployed on Render.com
+# Used to assign the external hostname to the ALLOWED_HOSTS list when deployed on Render.com
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
