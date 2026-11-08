@@ -59,13 +59,21 @@
         <section class="gallery-grid image-gallery" id="gallery" data-image-gallery aria-label="Wedding photos">
             {% for photo in photos %}
                 <figure class="photo-card uploaded-photo">
-                    <img src="{{ photo.display_url }}" alt="{{ photo.title|default:'Shared wedding photo' }}" loading="lazy">
+                    {% if forloop.counter <= 5 %}
+                        <img src="{{ photo.display_url }}" alt="{{ photo.title|default:'Shared wedding photo' }}" loading="lazy">
+                    {% else %}
+                        <img data-src="{{ photo.display_url }}" alt="{{ photo.title|default:'Shared wedding photo' }}" loading="lazy">
+                    {% endif %}
                     <figcaption>{% if photo.title %}{{ photo.title }}{% else %}Shared by a guest{% endif %}</figcaption>
                 </figure>
             {% endfor %}
             {% for photo in bundled_photos %}
                 <figure class="photo-card">
-                    <img src="{% static photo.src %}" alt="{{ photo.alt }}" loading="lazy">
+                    {% if photos|length|add:forloop.counter <= 5 %}
+                        <img src="{% static photo.src %}" alt="{{ photo.alt }}" loading="lazy">
+                    {% else %}
+                        <img data-src="{% static photo.src %}" alt="{{ photo.alt }}" loading="lazy">
+                    {% endif %}
                     <figcaption>{{ photo.alt }}</figcaption>
                 </figure>
             {% endfor %}
